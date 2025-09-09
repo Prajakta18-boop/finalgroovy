@@ -14,9 +14,9 @@ pipeline {
         stage('sending template file') {
             steps {
                  sshagent(['kubernetes']) {
-                sh ''' ssh -o StrictHostKeyChecking=no azureuser@20.40.44.92 'rm -r ~/templates' '''
+                sh ''' ssh -o StrictHostKeyChecking=no azureuser@57.159.28.40 'rm -r ~/templates' '''
                    }
-                sh '''scp -o StrictHostKeyChecking=no -i ~/.ssh/id_k8s -r templates azureuser@20.40.44.92:/home/azureuser/'''
+                sh '''scp -o StrictHostKeyChecking=no -i ~/.ssh/id_k8s -r templates azureuser@57.159.28.40:/home/azureuser/'''
             }
         }
         stage('Build and push docker image') {
@@ -42,8 +42,8 @@ pipeline {
         stage('appling the changes') {
                         steps {
                             sshagent(['kubernetes']) {
-                                sh '''ssh -o StrictHostKeyChecking=no azureuser@4.186.26.17 'kubectl delete -f /home/azureuser/templates' '''
-                                sh '''ssh -o StrictHostKeyChecking=no azureuser@4.186.26.17 'kubectl apply -f /home/azureuser/templates' '''
+                                sh '''ssh -o StrictHostKeyChecking=no azureuser@57.159.28.40 'kubectl delete -f /home/azureuser/templates' '''
+                                sh '''ssh -o StrictHostKeyChecking=no azureuser@57.159.28.40 'kubectl apply -f /home/azureuser/templates' '''
  
                                 
                                 
