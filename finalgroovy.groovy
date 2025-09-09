@@ -23,16 +23,16 @@ pipeline {
             steps {
                 sshagent(['docker1']) {
                     
-                    sh  '''ssh -o StrictHostKeyChecking=no azureuser@20.40.44.92 "docker build -t prajakta2828/f1f8 ~/finalproject/."'''
+                    sh  '''ssh -o StrictHostKeyChecking=no azureuser@20.197.0.169 "docker build -t prajakta2828/f1f8 ~/finalproject/."'''
                 
 
                     withCredentials([string(credentialsId: 'dockerimage', variable: 'DOCKER_PASSWORD')]) {
                         sh 'hostname'
                         sh """
-                     ssh -o StrictHostKeyChecking=no azureuser@4.240.96.242 \\
+                     ssh -o StrictHostKeyChecking=no azureuser@20.197.0.169 \\
                     'echo "$DOCKER_PASSWORD" | docker login -u "prajakta2828" --password-stdin'
                      """
-                        sh '''ssh -o StrictHostKeyChecking=no azureuser@4.240.96.242 "docker image push tanvi2828/f1f8"'''
+                        sh '''ssh -o StrictHostKeyChecking=no azureuser@20.197.0.169 "docker image push tanvi2828/f1f8"'''
                         //    sh docker image push tanvi2828/$JOB_NAME:v1.$BUILD_ID
                         //   sh docker image push tanvi2828/$JOB_NAME:latest
                     }
