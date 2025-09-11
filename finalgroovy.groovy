@@ -14,7 +14,7 @@ pipeline {
         stage('sending template file') {
             steps {
                  sshagent(['kubernetes']) {
-                sh ''' ssh -o StrictHostKeyChecking=no azureuser@57.159.28.40 'rm -r ~/templates' '''
+                sh ''' ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_k8s azureuser@57.159.28.40 'rm -r ~/templates' '''
                    }
                 sh '''scp -o StrictHostKeyChecking=no -i ~/.ssh/id_k8s -r templates azureuser@57.159.28.40:/home/azureuser/'''
             }
@@ -32,7 +32,7 @@ pipeline {
                      ssh -o StrictHostKeyChecking=no azureuser@20.197.0.169 \\
                     'echo "$DOCKER_PASSWORD" | docker login -u "prajakta2828" --password-stdin'
                      """
-                        sh '''ssh -o StrictHostKeyChecking=no azureuser@20.197.0.169 "docker image push tanvi2828/f1f8"'''
+                        sh '''ssh -o StrictHostKeyChecking=no azureuser@20.197.0.169 "docker image push prajakta2828/f1f8"'''
                         //    sh docker image push tanvi2828/$JOB_NAME:v1.$BUILD_ID
                         //   sh docker image push tanvi2828/$JOB_NAME:latest
                     }
